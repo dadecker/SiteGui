@@ -54,51 +54,192 @@ public class MainActivity extends AppCompatActivity {
 
         TextView showNumbers = (TextView) findViewById(R.id.textVinput);
 
-        switch (target.getId()) {
+        switch (target.getId())
+        {
+
             case R.id.button0:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "0");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "0");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "0");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
                 System.out.println(numberInput);
                 break;
-            case R.id.button1:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "1");
-                break;
+                case R.id.button1:
+                    if (numberInput.length() < 16)
+                    {
+                        if (numberInput.length() == 3 || numberInput.length() == 9)
+                        {
+                            showNumbers.setText(numberInput += " - " + "1");
+                        }
+                        else
+                        {
+                            showNumbers.setText(numberInput += "1");
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    }
+                    System.out.println(numberInput);
+                    break;
             case R.id.button2:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "2");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "2");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "2");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button3:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "3");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "3");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "3");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button4:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "4");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "4");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "4");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button5:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "5");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "5");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "5");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button6:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "6");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "6");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "6");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button7:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "7");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "7");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "7");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button8:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "8");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "8");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "8");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.button9:
-                if (numberInput.length() < 10)
-                    showNumbers.setText(numberInput += "9");
+                if (numberInput.length() < 16)
+                {
+                    if (numberInput.length() == 3 || numberInput.length() == 9)
+                    {
+                        showNumbers.setText(numberInput += " - " + "9");
+                    }
+                    else
+                    {
+                        showNumbers.setText(numberInput += "9");
+                    }
+                }
+                else
+                {
+                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                }
+                System.out.println(numberInput);
                 break;
             case R.id.buttone:
-                if (numberInput.length() < 10)
-                    Toast.makeText(this, "Please enter 10 digits", Toast.LENGTH_SHORT);
+                if (numberInput.length() < 16)
+                    Toast.makeText(this, "Please enter 10 digits", Toast.LENGTH_SHORT).show();
                 else
                     postNumber(numberInput);
                 break;

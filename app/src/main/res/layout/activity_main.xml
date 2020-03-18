@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/textview_border"
-                android:layout_gravity="fill"
+                android:layout_gravity="center_horizontal"
                 android:layout_columnSpan="3"
                 android:layout_rowSpan="3"
                 android:textSize="45px"
@@ -94,18 +94,23 @@
             <Button android:text="0"
                 android:id="@+id/button0"
                 android:layout_gravity="fill"
-                android:layout_columnSpan="2"
+                android:layout_columnSpan="1"
                 android:onClick="myClickHandler"
-                />
-
-            <Button android:text=""
                 />
 
             <Button android:text="ENTER"
                 android:id="@+id/buttone"
                 android:layout_gravity="fill"
+                android:textColor="@color/green"
+                android:layout_columnSpan="1"
+                android:background="@drawable/enter_button"
+                android:onClick="myClickHandler"
+                />
+            <Button android:text="RESET"
+                android:id="@+id/buttonr"
+                android:layout_gravity="fill"
                 android:textColor="@color/red"
-                android:layout_columnSpan="3"
+                android:layout_columnSpan="1"
                 android:background="@drawable/button_border"
                 android:onClick="myClickHandler"
                 />
