@@ -1,49 +1,44 @@
 package com.engaged.sitegui;
 
 
+import com.bumptech.glide.Glide;
+import com.engaged.sitegui.ImageAdapter;
+
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import org.w3c.dom.Text;
 
-import static android.app.ProgressDialog.show;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import static com.engaged.sitegui.HandleHttp.postNumber;
 
 public class MainActivity extends AppCompatActivity {
 
     private static String numberInput = "";
-
+    ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
+        ImageView imageView = findViewById(R.id.logoImage);
         setContentView(R.layout.activity_main);
-        LinearLayout linearLayout =  (LinearLayout) findViewById(R.id.linearlayout);
-        GridLayout gl = new GridLayout(this);
-        TextView tv = findViewById(R.id.textVinput);
 
-        Button button0 = findViewById(R.id.button0);
-        Button button1 = findViewById(R.id.button1);
-        Button button2 = findViewById(R.id.button2);
-        Button button3 = findViewById(R.id.button3);
-        Button button4 = findViewById(R.id.button4);
-        Button button5 = findViewById(R.id.button5);
-        Button button6 = findViewById(R.id.button6);
-        Button button7 = findViewById(R.id.button7);
-        Button button8 = findViewById(R.id.button8);
-        Button button9 = findViewById(R.id.button9);
-        Button buttone = findViewById(R.id.buttone);
-
-
-
-
+        //ImageView backgroundImage = null;
+        try{
+            //ImageAdapter.ResizeImage(backgroundImage, "arn:aws:s3:us-east-2:864435084730:accesspoint/get-images/background/cafe2.jpg");
+            ImageAdapter.ResizeImage(imageView, "arn:aws:s3:us-east-2:864435084730:accesspoint/get-images/logo/engaged_logo_green.png");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
 
 
     }
@@ -52,7 +47,24 @@ public class MainActivity extends AppCompatActivity {
     public void myClickHandler(View target)
     {
 
-        TextView showNumbers = (TextView) findViewById(R.id.textVinput);
+        TextView showNumbers = findViewById(R.id.textVinput);
+
+
+        Toast tooFewNumbersToast = Toast.makeText(this, "Please Enter 10 Numbers", Toast.LENGTH_LONG);
+        tooFewNumbersToast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+
+        View tooFewview = tooFewNumbersToast.getView();
+        //view.setBackgroundResource(R.drawable.custom_background);
+        TextView tooFewTextView = (TextView) tooFewview.findViewById(android.R.id.message);
+        tooFewTextView.setTextColor(Color.parseColor("#fc030b"));
+
+
+        Toast TooManyNumbersToast= Toast.makeText(getApplicationContext(),
+                "So Many Numbers!!! Please pick 10", Toast.LENGTH_SHORT);
+        TooManyNumbersToast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+        View tooManyview = TooManyNumbersToast.getView();
+        TextView tooManyTextView = (TextView) tooManyview.findViewById(android.R.id.message);
+        tooManyTextView.setTextColor(Color.parseColor("#fc030b"));
 
         switch (target.getId())
         {
@@ -71,9 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
                 case R.id.button1:
                     if (numberInput.length() < 16)
@@ -89,9 +100,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                        TooManyNumbersToast.show();
                     }
-                    System.out.println(numberInput);
                     break;
             case R.id.button2:
                 if (numberInput.length() < 16)
@@ -107,9 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button3:
                 if (numberInput.length() < 16)
@@ -125,9 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button4:
                 if (numberInput.length() < 16)
@@ -143,9 +151,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button5:
                 if (numberInput.length() < 16)
@@ -161,9 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button6:
                 if (numberInput.length() < 16)
@@ -179,9 +185,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button7:
                 if (numberInput.length() < 16)
@@ -197,9 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button8:
                 if (numberInput.length() < 16)
@@ -215,9 +219,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.button9:
                 if (numberInput.length() < 16)
@@ -233,16 +236,20 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText(this, "Only 10 numbers allowed", Toast.LENGTH_SHORT).show();
+                    TooManyNumbersToast.show();
                 }
-                System.out.println(numberInput);
                 break;
             case R.id.buttone:
-                if (numberInput.length() < 16)
-                    Toast.makeText(this, "Please enter 10 digits", Toast.LENGTH_SHORT).show();
+                if (numberInput.length() < 16) {
+                    tooFewNumbersToast.show();
+                }
                 else
-                    postNumber(numberInput);
+                {
+                    //postNumber(numberInput);
+                }
                 break;
+            case R.id.buttonr:
+                showNumbers.setText(numberInput = "");
 
         }
     }
