@@ -11,9 +11,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:columnCount="3"
+            android:columnCount="6"
             android:orientation="horizontal" >
 
+            <ImageView
+                android:id="@+id/leftSideImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnSpan="3"
+                android:layout_rowSpan="30"
+                android:background="@drawable/button_border"
+                android:layout_marginRight="30dp"
+                />
 
             <TextView
                 android:id="@+id/textTop"
@@ -26,6 +35,7 @@
                 android:layout_marginTop="5dp"
                 android:text="Enter Your Phone Number"
                 />
+
             <TextView
                 android:id="@+id/textVinput"
                 android:layout_width="wrap_content"
@@ -144,12 +154,19 @@
                 android:onClick="myClickHandler"
                 />
             <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_columnSpan="1"
+                android:id="@+id/leftspacelogo"
+                />
+            <ImageView
                 android:id="@+id/logoImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_columnSpan="3"
+                android:layout_columnSpan="2"
                 android:layout_rowSpan="5"
                 android:background="@drawable/button_border"
+                android:layout_marginTop="20dp"
                 />
         </GridLayout>
 
