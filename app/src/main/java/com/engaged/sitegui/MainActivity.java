@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ImageView imageViewLogo = findViewById(R.id.logoImage);
         ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
-        Picasso.get().load(logoStr).resize(150,150).centerCrop().into(imageViewLogo);
-        Picasso.get().load(leftSideStr).resize(500,500).centerCrop().into(imageViewLeftSide);
+        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
+        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
 
     }
 

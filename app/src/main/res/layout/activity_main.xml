@@ -19,15 +19,16 @@
             <GridLayout
                 android:columnCount="3"
                 android:orientation="horizontal"
+                android:layout_marginTop="10dp"
                 >
                 <TextView
                     android:layout_columnSpan="3"
-                    android:layout_rowSpan="10"
+                    android:layout_rowSpan="15"
                     android:textColor="@color/red"
                     android:fontFamily="cursive"
                     android:textFontWeight="500"
                     android:text="Can We Get Your Number?"
-                    android:textSize="30dp">
+                    android:textSize="35dp">
 
 
                 </TextView>
@@ -36,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_columnSpan="3"
-                    android:layout_rowSpan="25"
+                    android:layout_rowSpan="20"
                     android:layout_marginRight="30dp"
                     >
                 </ImageView>
