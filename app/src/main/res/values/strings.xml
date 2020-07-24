@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SiteGui</string>
+    <string name="login">Log in</string>
+    <string name="auth0_client_id">...</string>
+    <string name="auth0_domain">...</string>
+    <string name="api_url">https://api.engagedapps.com/addcustomer</string>
 </resources>
