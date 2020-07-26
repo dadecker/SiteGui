@@ -12,11 +12,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity  {
 
     Button login;
-    EditText email,password;
-    TextView goBack;
+    EditText email,password,storeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +23,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
 
-
-
-        goBack= (TextView) findViewById(R.id.goBack);
         email = (EditText) findViewById(R.id.email);
         password = (EditText) findViewById(R.id.password);
+        storeID = (EditText) findViewById(R.id.storeID);
         login = (Button) findViewById(R.id.login);
 
-        goBack.setOnClickListener(this);
-        login.setOnClickListener(this);
+
 
     }
 
@@ -40,37 +36,47 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStart() {
         super.onStart();
         Toast.makeText(this, "starting onStart()", Toast.LENGTH_SHORT).show();
-        if(!SavePreference.getUserName(LoginActivity.this).isEmpty()){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
+//        if(SavePreference.getUserName(LoginActivity.this) != null && SavePreference.getPrefPassword(LoginActivity.this) != null && SavePreference.getPrefStoreNumber(LoginActivity.this) != null){
+//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//        }
     }
 
-    private void loginUser() {
-        String email_string = email.getText().toString().trim();
-        SavePreference.setUserName(LoginActivity.this, email_string);
-        String password_string = password.getText().toString().trim();
 
+
+    public void loginUser(View view) {
+        String email_string = email.getText().toString().trim();
+        String password_string = password.getText().toString().trim();
+        String storeID_string = storeID.getText().toString().trim();
         if(TextUtils.isEmpty(email_string)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
+        }
+        else
+        {
+            SavePreference.setUserName(LoginActivity.this, email_string);
         }
 
         if(TextUtils.isEmpty(password_string)){
             Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
             return;
         }
+        else
+        {
+            SavePreference.setPrefPassword(LoginActivity.this, password_string);
+        }
+
+        if(TextUtils.isEmpty(storeID_string)){
+            Toast.makeText(this, "Please enter StoreID", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else
+        {
+            SavePreference.setPrefStoreNumber(this, storeID_string);
+        }
+
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view == login){
-            loginUser();
-        }
 
-        if(view == goBack){
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
-        }
-    }
 }

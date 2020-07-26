@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
     RequestQueue mRequestQueue = null;
     private String logoStr = "";
     private String leftSideStr = "https://host.engagedapps.com/friends1.jpg";
+    String url = "https://api.engagedapps.com/api/auth";
     Context context;
     Activity activity;
-    URL url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -252,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    String token = getToken();
+                   getToken();
                 }
                 break;
             case R.id.buttonr:
@@ -261,13 +261,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String getToken() throws JSONException {
+    private Void getToken() throws JSONException {
         String requestBody = "{ 'email':" + SavePreference.getUserName(context) +
                 ", 'password': " + SavePreference.getPrefPassword(context) + "}";
         JSONObject jsonBody = new JSONObject();
         jsonBody.put("email", SavePreference.getUserName(MainActivity.this));
         jsonBody.put("password", SavePreference.getPrefPassword(MainActivity.this));
-        String url = "https://api.engagedapps.com/api/auth";
+
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("body", jsonBody);
         JsonObjectRequest req = new JsonObjectRequest(url, jsonRequest,
@@ -295,10 +295,42 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-// add the request object to the queue to be executed
         ApplicationController.getInstance().addToRequestQueue(req);
 
-        return token;
+        if(token != null)
+        {
+            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + SavePreference.getPrefStoreNumber(this) + "/+" + this.numberInput;
+            JsonObjectRequest req2 = new JsonObjectRequest(url, new JSONObject(),
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+
+                                Toast tokenSucces = Toast.makeText(getApplicationContext(),
+                                        response.toString(), Toast.LENGTH_SHORT);
+                                tokenSucces.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                                View tokenSuccesView = tokenSucces.getView();
+                                TextView tokenSuccesTextView = (TextView) tokenSuccesView.findViewById(android.R.id.message);
+                                tokenSuccesTextView.setTextColor(Color.parseColor("#fc030b"));
+                                tokenSucces.show();
+                                VolleyLog.v("Response:%n %s", response.toString(4));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.e("Error: ", error.getMessage());
+                }
+            });
+            ApplicationController.getInstance().addToRequestQueue(req2);
+        }
+
+
+        return null;
     }
+
+
 
 }
