@@ -12,21 +12,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URL;
+import java.util.HashMap;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
     private static String numberInput = "";
-    private String logoStr = "https://app-images-central.s3.us-east-2.amazonaws.com/logo1.png";
-    private String leftSideStr = "https://app-images-central.s3.us-east-2.amazonaws.com/friends1.jpg";
+    private String token = "";
+
+    RequestQueue mRequestQueue = null;
+    private String logoStr = "";
+    private String leftSideStr = "https://host.engagedapps.com/friends1.jpg";
     Context context;
     Activity activity;
     URL url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+        String userName = SavePreference.getUserName(MainActivity.this);
+        logoStr = "https://host.engagedapps.com/" + userName + ".jpg";
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         activity = MainActivity.this;
@@ -39,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void myClickHandler(View target)
-    {
-
+    public void myClickHandler(View target) throws JSONException {
         TextView showNumbers = findViewById(R.id.textVinput);
         Toast tooFewNumbersToast = Toast.makeText(this, "Please Enter 10 Numbers", Toast.LENGTH_LONG);
         tooFewNumbersToast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -237,13 +252,53 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    //postNumber(numberInput);
+                    String token = getToken();
                 }
                 break;
             case R.id.buttonr:
                 showNumbers.setText(numberInput = "");
 
         }
+    }
+
+    private String getToken() throws JSONException {
+        String requestBody = "{ 'email':" + SavePreference.getUserName(context) +
+                ", 'password': " + SavePreference.getPrefPassword(context) + "}";
+        JSONObject jsonBody = new JSONObject();
+        jsonBody.put("email", SavePreference.getUserName(MainActivity.this));
+        jsonBody.put("password", SavePreference.getPrefPassword(MainActivity.this));
+        String url = "https://api.engagedapps.com/api/auth";
+        JSONObject jsonRequest = new JSONObject();
+        jsonRequest.put("body", jsonBody);
+        JsonObjectRequest req = new JsonObjectRequest(url, jsonRequest,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            token = response.getJSONObject("body").get("token").toString();
+                            Toast tokenSucces = Toast.makeText(getApplicationContext(),
+                                    response.toString(), Toast.LENGTH_SHORT);
+                            tokenSucces.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
+                            View tokenSuccesView = tokenSucces.getView();
+                            TextView tokenSuccesTextView = (TextView) tokenSuccesView.findViewById(android.R.id.message);
+                            tokenSuccesTextView.setTextColor(Color.parseColor("#fc030b"));
+                            tokenSucces.show();
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+
+// add the request object to the queue to be executed
+        ApplicationController.getInstance().addToRequestQueue(req);
+
+        return token;
     }
 
 }
