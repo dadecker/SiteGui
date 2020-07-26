@@ -56,6 +56,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="57dp"
-        android:text="New User? Return to Registration" />
+        android:text="" />
 
 </RelativeLayout>

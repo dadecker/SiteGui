@@ -40,8 +40,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onStart() {
         super.onStart();
         Toast.makeText(this, "starting onStart()", Toast.LENGTH_SHORT).show();
-        String currentUser = SavePreference.getUserName(LoginActivity.this);
-        if(currentUser != null){
+        if(!SavePreference.getUserName(LoginActivity.this).isEmpty()){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
