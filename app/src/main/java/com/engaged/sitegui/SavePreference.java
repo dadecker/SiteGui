@@ -4,48 +4,39 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class SavePreference {
-    static final String PREF_USER_NAME= "";
-    static final String PREF_PASSWORD="";
-    static final String PREF_STOREID="";
+    Set<String> set = new HashSet<String>();
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);
     }
 
-    public static void setUserName(Context ctx, String userName)
-    {
+    public void setUserName(String email) throws JSONException {
+        set.add("{'email':'" + email  +"'}");
+    }
+
+
+    public void setPrefPassword(String password) throws JSONException {
+        set.add("{'password':'" + password  +"'}");
+    }
+
+    public void setPrefStoreNumber(Context ctx, String storeID) throws JSONException {
+
+        set.add("{'storeID':'" + storeID  +"'}");
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(PREF_USER_NAME, userName);
+        editor.putStringSet("set", set);
         editor.commit();
     }
 
-    public static String getUserName(Context ctx)
+    public Set<String> getSavedPrefSet()
     {
-        return getSharedPreferences(ctx).getString(PREF_USER_NAME, null);
+        return set;
     }
 
-    public static void setPrefPassword(Context ctx, String password)
-    {
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(PREF_PASSWORD, password);
-        editor.commit();
-    }
-
-    public static String getPrefPassword(Context ctx)
-    {
-        return getSharedPreferences(ctx).getString(PREF_PASSWORD, null);
-    }
-
-    public static void setPrefStoreNumber(Context ctx, String storeID)
-    {
-        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
-        editor.putString(PREF_STOREID, storeID);
-        editor.commit();
-    }
-
-    public static String getPrefStoreNumber(Context ctx)
-    {
-        return getSharedPreferences(ctx).getString(PREF_STOREID, null);
-    }
 
 }

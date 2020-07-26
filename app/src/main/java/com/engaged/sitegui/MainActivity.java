@@ -12,7 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,12 +41,25 @@ public class MainActivity extends AppCompatActivity {
     String url = "https://api.engagedapps.com/api/auth";
     Context context;
     Activity activity;
+    private String email = null;
+    private String password = null;
+    private String storeId = null;
+    SavePreference mSavePreference = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSavePreference = new SavePreference();
         mRequestQueue = Volley.newRequestQueue(MainActivity.this);
-        String userName = SavePreference.getUserName(MainActivity.this);
-        logoStr = "https://host.engagedapps.com/" + userName + ".jpg";
+        Set<String> set = mSavePreference.getSavedPrefSet();
+        List<String> setList = new ArrayList<>();
+        for(String each: set)
+        {
+            setList.add(each);
+        }
+        email = setList.get(0);
+        password = setList.get(1);
+        storeId = setList.get(2);
+        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         activity = MainActivity.this;
@@ -262,11 +278,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Void getToken() throws JSONException {
-        String requestBody = "{ 'email':" + SavePreference.getUserName(context) +
-                ", 'password': " + SavePreference.getPrefPassword(context) + "}";
         JSONObject jsonBody = new JSONObject();
-        jsonBody.put("email", SavePreference.getUserName(MainActivity.this));
-        jsonBody.put("password", SavePreference.getPrefPassword(MainActivity.this));
+        jsonBody.put("email", email);
+        jsonBody.put("password", password);
 
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("body", jsonBody);
@@ -299,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(token != null)
         {
-            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + SavePreference.getPrefStoreNumber(this) + "/+" + this.numberInput;
+            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + this.numberInput;
             JsonObjectRequest req2 = new JsonObjectRequest(url, new JSONObject(),
                     new Response.Listener<JSONObject>() {
                         @Override

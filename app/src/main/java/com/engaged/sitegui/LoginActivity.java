@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -43,17 +45,18 @@ public class LoginActivity extends AppCompatActivity  {
 
 
 
-    public void loginUser(View view) {
+    public void loginUser(View view) throws JSONException {
         String email_string = email.getText().toString().trim();
         String password_string = password.getText().toString().trim();
         String storeID_string = storeID.getText().toString().trim();
+        SavePreference savePreference = new SavePreference();
         if(TextUtils.isEmpty(email_string)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
         }
         else
         {
-            SavePreference.setUserName(LoginActivity.this, email_string);
+            savePreference.setUserName(email_string);
         }
 
         if(TextUtils.isEmpty(password_string)){
@@ -62,7 +65,7 @@ public class LoginActivity extends AppCompatActivity  {
         }
         else
         {
-            SavePreference.setPrefPassword(LoginActivity.this, password_string);
+            savePreference.setPrefPassword( password_string);
         }
 
         if(TextUtils.isEmpty(storeID_string)){
@@ -71,7 +74,7 @@ public class LoginActivity extends AppCompatActivity  {
         }
         else
         {
-            SavePreference.setPrefStoreNumber(this, storeID_string);
+            savePreference.setPrefStoreNumber(this, storeID_string);
         }
 
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
