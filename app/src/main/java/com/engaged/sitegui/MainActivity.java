@@ -291,6 +291,15 @@ public class MainActivity extends AppCompatActivity {
                         {
                             System.out.println("exception: "+ e.getMessage());
                         }
+
+                        if(response.has("token"))
+                        {
+                            token = response.getJSONObject("body").get("token").toString();
+                            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
+                            RequestFuture<JSONObject> fr2 = RequestFuture.newFuture();
+                            JsonObjectRequest request2 = new JsonObjectRequest(url, new JSONObject(response.toString()), fr2, fr2);
+                            ApplicationController.getInstance().addToRequestQueue(request);
+                        }
                     }
                     catch(Exception e)
                     {
