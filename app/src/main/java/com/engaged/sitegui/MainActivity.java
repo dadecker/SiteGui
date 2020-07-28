@@ -228,51 +228,6 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     try
                     {
-//                        JSONObject jsonBody = new JSONObject();
-//                        jsonBody.put("email", email);
-//                        jsonBody.put("password", password);
-//
-//                        JSONObject jsonRequest = new JSONObject();
-//                        jsonRequest.put("body", jsonBody);
-//                        JsonObjectRequest req = new JsonObjectRequest(url, jsonRequest,
-//                                new Response.Listener<JSONObject>() {
-//                                    @Override
-//                                    public void onResponse(JSONObject response) {
-//                                        try {
-//                                            token = response.getJSONObject("body").get("token").toString();
-//                                            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
-//                                            JsonObjectRequest req2 = new JsonObjectRequest(url, new JSONObject(),
-//                                                    new Response.Listener<JSONObject>() {
-//                                                        @Override
-//                                                        public void onResponse(JSONObject response) {
-//                                                            try
-//                                                            {
-//                                                                VolleyLog.v("Response:%n %s", response.toString(4));
-//                                                            } catch (JSONException e) {
-//                                                                e.printStackTrace();
-//                                                            }
-//                                                        }
-//                                                    }, new Response.ErrorListener() {
-//                                                @Override
-//                                                public void onErrorResponse(VolleyError error) {
-//                                                    VolleyLog.e("Error: ", error.getMessage());
-//                                                }
-//                                            });
-//                                            ApplicationController.getInstance().addToRequestQueue(req2);
-//
-//                                        } catch (JSONException e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                    }
-//                                }, new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                VolleyLog.e("Error: ", error.getMessage());
-//                            }
-//                        });
-//
-//                        ApplicationController.getInstance().addToRequestQueue(req);
-
                         JSONObject jsonBody = new JSONObject();
                         jsonBody.put("email", email);
                         jsonBody.put("password", password);
@@ -298,7 +253,16 @@ public class MainActivity extends AppCompatActivity {
                             String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
                             RequestFuture<JSONObject> fr2 = RequestFuture.newFuture();
                             JsonObjectRequest request2 = new JsonObjectRequest(url, new JSONObject(response.toString()), fr2, fr2);
-                            ApplicationController.getInstance().addToRequestQueue(request);
+                            ApplicationController.getInstance().addToRequestQueue(request2);
+                            JSONObject response2 = new JSONObject();
+                            try{
+                                response2 = fr2.get();
+                                System.out.println("response: " + response2.toString());
+                            }
+                            catch(Exception e)
+                            {
+                                System.out.println("exception: "+ e.getMessage());
+                            }
                         }
                     }
                     catch(Exception e)
