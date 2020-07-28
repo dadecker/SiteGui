@@ -37,10 +37,10 @@ public class LoginActivity extends AppCompatActivity  {
     @Override
     public void onStart() {
         super.onStart();
-        Toast.makeText(this, "starting onStart()", Toast.LENGTH_SHORT).show();
-//        if(SavePreference.getUserName(LoginActivity.this) != null && SavePreference.getPrefPassword(LoginActivity.this) != null && SavePreference.getPrefStoreNumber(LoginActivity.this) != null){
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//        }
+        SavePreference mSavePreference = new SavePreference();
+        if(mSavePreference.getSavedPrefSet(LoginActivity.this) != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
     }
 
 

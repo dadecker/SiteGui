@@ -22,8 +22,8 @@ public class MyAsyncTask extends AsyncTask<Context, Void, String> {
         final String token = "";
         Context context = contexts[0];
         RequestQueue queue = Volley.newRequestQueue(context);
-        String requestBody = "{ 'email':" + SavePreference.getUserName(context) +
-                ", 'password': " + SavePreference.getPrefPassword(context) + "}";
+//        String requestBody = "{ 'email':" + email +
+//                ", 'password': " + password + "}";
 
         String url = "https://api.engagedapps.com/api/auth";
 

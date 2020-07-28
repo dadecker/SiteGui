@@ -33,9 +33,9 @@ public class SavePreference {
         editor.commit();
     }
 
-    public Set<String> getSavedPrefSet()
+    public Set<String> getSavedPrefSet(Context context)
     {
-        return set;
+        return getSharedPreferences(context).getStringSet("set",null);
     }
 
 
