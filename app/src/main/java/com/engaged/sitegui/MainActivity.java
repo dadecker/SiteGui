@@ -17,28 +17,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.android.volley.Request.Method.POST;
+
 public class MainActivity extends AppCompatActivity {
 
     private static String numberInput = "";
     private String token = "";
 
-    RequestQueue mRequestQueue = null;
+
     private String logoStr = "";
     private String leftSideStr = "https://host.engagedapps.com/friends1.jpg";
     String url = "https://api.engagedapps.com/api/auth";
@@ -51,8 +56,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("starting on create.......");
         mSavePreference = new SavePreference();
-        mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+        final RequestQueue mRequestQueue = Volley.newRequestQueue(MainActivity.this);
         Set<String> set = new HashSet<>();
         set = mSavePreference.getSavedPrefSet(MainActivity.this);
         for(String each: set)
@@ -77,15 +83,87 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
-        setContentView(R.layout.activity_main);
-        context = getApplicationContext();
-        activity = MainActivity.this;
-        setContentView(R.layout.activity_main);
-        ImageView imageViewLogo = findViewById(R.id.logoImage);
-        ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
-        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
-        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
+
+        StringRequest postRequest = new StringRequest(POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println("response is.....: " + response);
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            token = json.getString("token");
+                            System.out.println("token is....." + token);
+                            String custURL = "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
+                                    StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    if (!response.equals(null)) {
+                                    } else {
+                                    }
+                                }
+
+                            }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                }
+                            }) {
+
+                                //This is for Headers If You Needed
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("Content-Type", "application/json; charset=UTF-8");
+                                    params.put("Authorization", "Bearer "+ token);
+                                    return params;
+                                }
+                            };
+
+                            mRequestQueue.add(newRequest);
+
+
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("email", email);
+                params.put("password", password);
+
+                return params;
+            }
+        };
+        mRequestQueue.add(postRequest);
+
+//
+//        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
+//        setContentView(R.layout.activity_main);
+//        context = getApplicationContext();
+//        activity = MainActivity.this;
+//        setContentView(R.layout.activity_main);
+//        ImageView imageViewLogo = findViewById(R.id.logoImage);
+//        ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
+//        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
+//        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
 
     }
 
@@ -235,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                         //JSONObject jsonRequest = new JSONObject();
                         //jsonRequest.put("body", jsonBody);
                         RequestFuture<JSONObject> fr = RequestFuture.newFuture();
-                        JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(jsonBody.toString()), fr, fr);
+                        JsonObjectRequest request = new JsonObjectRequest(POST, url, jsonBody, fr, fr);
                         ApplicationController.getInstance().addToRequestQueue(request);
                         JSONObject response = new JSONObject();
                         try{
