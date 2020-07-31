@@ -3,6 +3,7 @@ package com.engaged.sitegui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void myClickHandler(View target) throws JSONException {
-        TextView showNumbers = findViewById(R.id.textVinput);
+        final TextView showNumbers = findViewById(R.id.textVinput);
         Toast tooFewNumbersToast = Toast.makeText(this, "Please Enter 10 Numbers", Toast.LENGTH_LONG);
         tooFewNumbersToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
 
@@ -131,7 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button1:
                 if (numberInput.length() < 16) {
-                    if (numberInput.length() == 3 || numberInput.length() == 9) {
+                    if (numberInput.length() == 3 || numberInput.length() == 9 || numberInput.length() == 8) {
+                        if(numberInput.equals("918 - 94"))
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         showNumbers.setText(numberInput += " - " + "1");
                     } else {
                         showNumbers.setText(numberInput += "1");
@@ -256,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
                                                 public void onResponse(String response) {
                                                     if (!response.equals(null)) {
                                                         SendSuccesToast.show();
-                                                        numberInput = "";
+                                                        showNumbers.setText(numberInput = "");
                                                     } else {
                                                     }
                                                 }
