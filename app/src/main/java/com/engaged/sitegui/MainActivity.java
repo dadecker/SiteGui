@@ -12,11 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URL;
-import java.util.ArrayList;
+import java.io.Console;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,7 +24,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
@@ -46,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String logoStr = "";
     private String leftSideStr = "https://host.engagedapps.com/friends1.jpg";
-    String url = "https://api.engagedapps.com/api/auth";
+    String url = "https://api.engagedapps.com/auth";
     Context context;
     Activity activity;
     private String email = null;
@@ -58,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         System.out.println("starting on create.......");
         mSavePreference = new SavePreference();
-        final RequestQueue mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+
         Set<String> set = new HashSet<>();
         set = mSavePreference.getSavedPrefSet(MainActivity.this);
         for(String each: set)
@@ -83,88 +80,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
-        StringRequest postRequest = new StringRequest(POST, url,
-                new Response.Listener<String>()
-                {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        System.out.println("response is.....: " + response);
-                        try {
-                            JSONObject json = new JSONObject(response);
-                            token = json.getString("token");
-                            System.out.println("token is....." + token);
-                            String custURL = "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
-                                    StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    if (!response.equals(null)) {
-                                    } else {
-                                    }
-                                }
-
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                }
-                            }) {
-
-                                //This is for Headers If You Needed
-                                @Override
-                                public Map<String, String> getHeaders() throws AuthFailureError {
-                                    Map<String, String> params = new HashMap<String, String>();
-                                    params.put("Content-Type", "application/json; charset=UTF-8");
-                                    params.put("Authorization", "Bearer "+ token);
-                                    return params;
-                                }
-                            };
-
-                            mRequestQueue.add(newRequest);
-
-
-
-
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // error
-
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("email", email);
-                params.put("password", password);
-
-                return params;
-            }
-        };
-        mRequestQueue.add(postRequest);
-
-//
-//        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
-//        setContentView(R.layout.activity_main);
-//        context = getApplicationContext();
-//        activity = MainActivity.this;
-//        setContentView(R.layout.activity_main);
-//        ImageView imageViewLogo = findViewById(R.id.logoImage);
-//        ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
-//        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
-//        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
-
+        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
+        setContentView(R.layout.activity_main);
+        context = getApplicationContext();
+        activity = MainActivity.this;
+        setContentView(R.layout.activity_main);
+        ImageView imageViewLogo = findViewById(R.id.logoImage);
+        ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
+        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
+        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
     }
 
 
@@ -184,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
         View tooManyview = TooManyNumbersToast.getView();
         TextView tooManyTextView = (TextView) tooManyview.findViewById(android.R.id.message);
         tooManyTextView.setTextColor(Color.parseColor("#fc030b"));
+
+        final Toast SendSuccesToast = Toast.makeText(getApplicationContext(),
+                "Sucess!! Prepare for wonderfulness!!", Toast.LENGTH_SHORT);
+        SendSuccesToast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 0);
+        View SendSuccesview = SendSuccesToast.getView();
+        TextView SendSuccesTextView = (TextView) SendSuccesview.findViewById(android.R.id.message);
+        SendSuccesTextView .setTextColor(Color.parseColor("#fc030b"));
 
         switch (target.getId()) {
 
@@ -306,42 +237,69 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     try
                     {
-                        JSONObject jsonBody = new JSONObject();
-                        jsonBody.put("email", email);
-                        jsonBody.put("password", password);
+                        final RequestQueue mRequestQueue = Volley.newRequestQueue(MainActivity.this);
+                        StringRequest postRequest = new StringRequest(POST, url,
+                                new Response.Listener<String>()
+                                {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        // response
+                                        System.out.println("response is.....: " + response);
+                                        try {
+                                            JSONObject json = new JSONObject(response);
+                                            token = json.getString("token");
+                                            System.out.println("token is....." + token);
+                                            String numToSend = numberInput.replace(" ", "").replace("-","");
+                                            String custURL = "https://api.engagedapps.com/customer/addCustomer/" + storeId + "/+" + numToSend;
+                                            StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    if (!response.equals(null)) {
+                                                        SendSuccesToast.show();
+                                                        numberInput = "";
+                                                    } else {
+                                                    }
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+                                                    System.out.println("error sending customer: " + error.toString());
+                                                }
+                                            }) {
+                                                @Override
+                                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                                    Map<String, String> params = new HashMap<String, String>();
+                                                    params.put("Authorization", "Bearer "+ token);
+                                                    return params;
+                                                }
+                                            };
+                                            mRequestQueue.add(newRequest);
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
-                        //JSONObject jsonRequest = new JSONObject();
-                        //jsonRequest.put("body", jsonBody);
-                        RequestFuture<JSONObject> fr = RequestFuture.newFuture();
-                        JsonObjectRequest request = new JsonObjectRequest(POST, url, jsonBody, fr, fr);
-                        ApplicationController.getInstance().addToRequestQueue(request);
-                        JSONObject response = new JSONObject();
-                        try{
-                            response = fr.get();
-                            System.out.println("response: " + response.toString());
-                        }
-                        catch(Exception e)
-                        {
-                            System.out.println("exception: "+ e.getMessage());
-                        }
+                                    }
+                                },
+                                new Response.ErrorListener()
+                                {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        // error
 
-                        if(response.has("token"))
-                        {
-                            token = response.getJSONObject("body").get("token").toString();
-                            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + numberInput;
-                            RequestFuture<JSONObject> fr2 = RequestFuture.newFuture();
-                            JsonObjectRequest request2 = new JsonObjectRequest(url, new JSONObject(response.toString()), fr2, fr2);
-                            ApplicationController.getInstance().addToRequestQueue(request2);
-                            JSONObject response2 = new JSONObject();
-                            try{
-                                response2 = fr2.get();
-                                System.out.println("response: " + response2.toString());
-                            }
-                            catch(Exception e)
+                                    }
+                                }
+                        ) {
+                            @Override
+                            protected Map<String, String> getParams()
                             {
-                                System.out.println("exception: "+ e.getMessage());
+                                Map<String, String>  params = new HashMap<String, String>();
+                                params.put("email", email);
+                                params.put("password", password);
+
+                                return params;
                             }
-                        }
+                        };
+                        mRequestQueue.add(postRequest);
                     }
                     catch(Exception e)
                     {
@@ -352,84 +310,4 @@ public class MainActivity extends AppCompatActivity {
                 }
         }
     }
-
-
-//    private Void getToken() throws JSONException {
-//        if (numberInput.length() < 16) {
-//            Toast tooFewNumbersToast = Toast.makeText(this, "Please Enter 10 Numbers", Toast.LENGTH_LONG);
-//            tooFewNumbersToast.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
-//            View tooFewview = tooFewNumbersToast.getView();
-//            TextView tooFewTextView = (TextView) tooFewview.findViewById(android.R.id.message);
-//            tooFewTextView.setTextColor(Color.parseColor("#fc030b"));
-//            return null;
-//        }
-//        JSONObject jsonBody = new JSONObject();
-//        jsonBody.put("email", email);
-//        jsonBody.put("password", password);
-//
-//        JSONObject jsonRequest = new JSONObject();
-//        jsonRequest.put("body", jsonBody);
-//        JsonObjectRequest req = new JsonObjectRequest(url, jsonRequest,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            token = response.getJSONObject("body").get("token").toString();
-//                            Toast tokenSucces = Toast.makeText(getApplicationContext(),
-//                                    response.toString(), Toast.LENGTH_SHORT);
-//                            tokenSucces.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
-//                            View tokenSuccesView = tokenSucces.getView();
-//                            TextView tokenSuccesTextView = (TextView) tokenSuccesView.findViewById(android.R.id.message);
-//                            tokenSuccesTextView.setTextColor(Color.parseColor("#fc030b"));
-//                            tokenSucces.show();
-//                            VolleyLog.v("Response:%n %s", response.toString(4));
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                VolleyLog.e("Error: ", error.getMessage());
-//            }
-//        });
-//
-//        ApplicationController.getInstance().addToRequestQueue(req);
-//
-//        if(token != null)
-//        {
-//            String custUrl = url + "https://api.engagedapps.com/api/customer/addCustomer/" + storeId + "/+" + this.numberInput;
-//            JsonObjectRequest req2 = new JsonObjectRequest(url, new JSONObject(),
-//                    new Response.Listener<JSONObject>() {
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            try {
-//
-//                                Toast tokenSucces = Toast.makeText(getApplicationContext(),
-//                                        response.toString(), Toast.LENGTH_SHORT);
-//                                tokenSucces.setGravity(Gravity.TOP| Gravity.CENTER_HORIZONTAL, 0, 0);
-//                                View tokenSuccesView = tokenSucces.getView();
-//                                TextView tokenSuccesTextView = (TextView) tokenSuccesView.findViewById(android.R.id.message);
-//                                tokenSuccesTextView.setTextColor(Color.parseColor("#fc030b"));
-//                                tokenSucces.show();
-//                                VolleyLog.v("Response:%n %s", response.toString(4));
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                    }, new Response.ErrorListener() {
-//                @Override
-//                public void onErrorResponse(VolleyError error) {
-//                    VolleyLog.e("Error: ", error.getMessage());
-//                }
-//            });
-//            ApplicationController.getInstance().addToRequestQueue(req2);
-//        }
-//
-//
-//        return null;
-//    }
-
-
-
 }
