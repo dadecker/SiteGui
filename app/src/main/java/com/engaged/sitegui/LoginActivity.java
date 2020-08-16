@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     Button login;
     EditText email,password,storeID;
+    private static boolean isReset = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,11 @@ public class LoginActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
         SavePreference mSavePreference = new SavePreference();
-        if(mSavePreference.getSavedPrefSet(LoginActivity.this) != null){
+        if(mSavePreference.getSavedPrefSet(LoginActivity.this) != null && !isReset){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+        else {
+            SavePreference.resetPrefrences(this);
         }
     }
 
@@ -76,10 +80,14 @@ public class LoginActivity extends AppCompatActivity  {
         {
             savePreference.setPrefStoreNumber(this, storeID_string);
         }
-
+        isReset = false;
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
     }
 
+    public static void setReset(boolean setReset)
+    {
+        isReset = setReset;
+    }
 
 }

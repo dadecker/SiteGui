@@ -127,20 +127,35 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "0");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button1:
                 if (numberInput.length() < 16) {
-                    if (numberInput.length() == 3 || numberInput.length() == 9 || numberInput.length() == 8) {
-                        if(numberInput.equals("918 - 94"))
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    if (numberInput.length() == 3 || numberInput.length() == 9) {
                         showNumbers.setText(numberInput += " - " + "1");
                     } else {
                         showNumbers.setText(numberInput += "1");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        if(inputShort.equals("91894191894"))
+                            showNumbers.setText(numberInput += "1");
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button2:
@@ -151,7 +166,15 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "2");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button3:
@@ -162,7 +185,15 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "3");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button4:
@@ -173,7 +204,16 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "4");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                       if(inputShort.equals("9189419189"))
+                           showNumbers.setText(numberInput += "4");
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button5:
@@ -184,7 +224,14 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "5");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+
+                        //do nothing
+                    } else {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button6:
@@ -195,7 +242,15 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "6");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button7:
@@ -206,7 +261,15 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "7");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
                 }
                 break;
             case R.id.button8:
@@ -217,7 +280,16 @@ public class MainActivity extends AppCompatActivity {
                         showNumbers.setText(numberInput += "8");
                     }
                 } else {
-                    TooManyNumbersToast.show();
+                    String inputShort = numberInput.replace("-", "").replace(" ", "");
+                    if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                    {
+                        //do nothing
+                    }
+                    else
+                    {
+                        TooManyNumbersToast.show();
+                    }
+
                 }
                 break;
             case R.id.button9:
@@ -227,17 +299,36 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         showNumbers.setText(numberInput += "9");
                     }
-                } else {
-                    TooManyNumbersToast.show();
+                } else
+                    {
+                        String inputShort = numberInput.replace("-", "").replace(" ", "");
+                        if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941"))
+                        {
+                            //do nothing
+                        }
+                        else
+                        {
+                            TooManyNumbersToast.show();
+                        }
                 }
                 break;
             case R.id.buttonr:
                 showNumbers.setText(numberInput = "");
                 break;
             case R.id.buttone:
+                String inputShort = numberInput.replace("-", "").replace(" ", "");
                 if (numberInput.length() < 16) {
                     tooFewNumbersToast.show();
-                } else {
+                }
+                else  if(inputShort.equals("9189419189") ||inputShort.equals("91894191894") || inputShort.equals("918941918941")  )
+                {
+                   if(inputShort.equals("918941918941"))
+                   {
+                       LoginActivity.setReset(true);
+                       startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                   }
+                }
+                else {
                     try
                     {
                         final RequestQueue mRequestQueue = Volley.newRequestQueue(MainActivity.this);

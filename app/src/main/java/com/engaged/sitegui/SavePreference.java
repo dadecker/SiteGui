@@ -38,5 +38,10 @@ public class SavePreference {
         return getSharedPreferences(context).getStringSet("set",null);
     }
 
-
+    public static void resetPrefrences(Context context)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.clear();
+        editor.commit();
+    }
 }
