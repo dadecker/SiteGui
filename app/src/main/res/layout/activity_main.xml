@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:alpha="1"
-    tools:context=".MainActivity">>
+    tools:context=".MainActivity">
 
         <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
@@ -15,18 +15,20 @@
             android:layout_marginTop="5dp"
             android:columnCount="6"
             android:orientation="horizontal"
-            android:verticalSpacing="2dp">
+            android:verticalSpacing="20dp">
 
 
             <GridLayout
                 android:columnCount="3"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/white"
                 >
                 <TextView
                     android:layout_columnSpan="3"
                     android:layout_rowSpan="15"
-                    android:textColor="@color/red"
+                    android:textColor="@color/black"
                     android:fontFamily="cursive"
                     android:textFontWeight="500"
                     android:text="Can We Get Your Number?"
@@ -45,11 +47,12 @@
                 </ImageView>
             </GridLayout>
             <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:columnCount="3"
                 android:orientation="horizontal"
+                android:background="@color/royal_blue"
                 >
                 <TextView
                     android:id="@+id/textVinput"

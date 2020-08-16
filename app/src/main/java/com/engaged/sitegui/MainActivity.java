@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Console;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -25,8 +25,6 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.*;
@@ -43,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String logoStr = "";
-    private String leftSideStr = "https://host.engagedapps.com/friends1.jpg";
+    private String leftSideStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/friends1.jpg";
     String url = "https://api.engagedapps.com/auth";
     Context context;
     Activity activity;
@@ -81,15 +79,28 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        logoStr = "https://host.engagedapps.com/" + email + ".jpg";
+        logoStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/" + storeId.toString() + ".PNG";
+        Uri logoUri = Uri.parse(logoStr);
+        Uri leftUri = Uri.parse(leftSideStr);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         activity = MainActivity.this;
         setContentView(R.layout.activity_main);
         ImageView imageViewLogo = findViewById(R.id.logoImage);
         ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
-        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
-        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.listener(new Picasso.Listener()
+        {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception)
+            {
+                System.out.println(exception.getCause());
+            }
+        });
+        builder.build().load(logoUri).into(imageViewLogo);
+        builder.build().load(leftUri).into(imageViewLeftSide);
+//        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
+//        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
     }
 
 
