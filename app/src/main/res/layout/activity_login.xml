@@ -21,8 +21,7 @@
             android:layout_rowSpan="9"
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_centerVertical="true"
-            android:hint="Email"
+            android:hint="@string/email"
             android:background="@drawable/textview_border"
             android:minHeight="50dp"/>
 
@@ -31,10 +30,9 @@
             android:layout_rowSpan="9"
             android:layout_width="match_parent"
             android:inputType="textPassword"
-            android:hint="Password"
+            android:hint="@string/password"
             android:id="@+id/password"
             android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
             android:background="@drawable/textview_border"
             android:minHeight="50dp"/>
 
@@ -42,10 +40,9 @@
             android:layout_columnSpan="6"
             android:layout_rowSpan="9"
             android:layout_width="match_parent"
-            android:hint="StoreID"
+            android:hint="@string/storeid"
             android:id="@+id/storeID"
             android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
             android:background="@drawable/textview_border"
             android:minHeight="50dp"/>
 
@@ -54,11 +51,8 @@
             android:layout_columnSpan="6"
             android:layout_rowSpan="9"
             android:layout_width="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/password"
             android:layout_marginTop="10dp"
-            android:text="Login"
+            android:text="@string/login"
             android:onClick="loginUser"/>
 
 

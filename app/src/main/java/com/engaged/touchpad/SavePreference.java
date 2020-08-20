@@ -1,11 +1,10 @@
-package com.engaged.sitegui;
+package com.engaged.touchpad;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashSet;
 import java.util.Set;

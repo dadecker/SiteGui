@@ -1,12 +1,10 @@
-package com.engaged.sitegui;
+package com.engaged.touchpad;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -39,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private static String numberInput = "";
     private String token = "";
 
-
     private String logoStr = "";
     private String leftSideStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/friends1.jpg";
     String url = "https://api.engagedapps.com/auth";
@@ -52,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("starting on create.......");
         mSavePreference = new SavePreference();
 
         Set<String> set = new HashSet<>();
@@ -75,33 +71,23 @@ public class MainActivity extends AppCompatActivity {
                    storeId = json.getString("storeID");
                }
             } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
 
-        logoStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/" + storeId.toString() + ".PNG";
-        Uri logoUri = Uri.parse(logoStr);
-        Uri leftUri = Uri.parse(leftSideStr);
+        logoStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/" + storeId + ".PNG";
+
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
         activity = MainActivity.this;
         setContentView(R.layout.activity_main);
         ImageView imageViewLogo = findViewById(R.id.logoImage);
         ImageView imageViewLeftSide = findViewById(R.id.leftSideImage);
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.listener(new Picasso.Listener()
-        {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception)
-            {
-                System.out.println(exception.getCause());
-            }
-        });
-        builder.build().load(logoUri).into(imageViewLogo);
-        builder.build().load(leftUri).into(imageViewLeftSide);
-//        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
-//        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
+        Picasso.get().load(logoStr).resize(200,200).centerCrop().into(imageViewLogo);
+        Picasso.get().load(leftSideStr).resize(550,400).centerCrop().into(imageViewLeftSide);
+
     }
+
+
 
 
     public void myClickHandler(View target) throws JSONException {
@@ -348,12 +334,9 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     @Override
                                     public void onResponse(String response) {
-                                        // response
-                                        System.out.println("response is.....: " + response);
                                         try {
                                             JSONObject json = new JSONObject(response);
                                             token = json.getString("token");
-                                            System.out.println("token is....." + token);
                                             String numToSend = numberInput.replace(" ", "").replace("-","");
                                             String custURL = "https://api.engagedapps.com/customer/addCustomer/" + storeId + "/+" + numToSend;
                                             StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
@@ -368,7 +351,6 @@ public class MainActivity extends AppCompatActivity {
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    System.out.println("error sending customer: " + error.toString());
                                                 }
                                             }) {
                                                 @Override
@@ -408,7 +390,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     catch(Exception e)
                     {
-                        System.out.println("exception: " + e.getMessage());
                     }
 
                     break;

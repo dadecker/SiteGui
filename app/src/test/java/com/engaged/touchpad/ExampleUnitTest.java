@@ -1,4 +1,4 @@
-package com.engaged.sitegui;
+package com.engaged.touchpad;
 
 import org.junit.Test;
 

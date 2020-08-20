@@ -1,4 +1,4 @@
-package com.engaged.sitegui;
+package com.engaged.touchpad;
 
 import android.app.Application;
 import android.text.TextUtils;

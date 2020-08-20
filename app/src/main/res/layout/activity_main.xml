@@ -12,10 +12,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:columnCount="6"
             android:orientation="horizontal"
-            android:verticalSpacing="20dp">
+            android:verticalSpacing="20dp"
+           >
 
 
             <GridLayout
@@ -53,6 +54,8 @@
                 android:columnCount="3"
                 android:orientation="horizontal"
                 android:background="@color/royal_blue"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
                 >
                 <TextView
                     android:id="@+id/textVinput"
