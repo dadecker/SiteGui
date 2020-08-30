@@ -334,11 +334,14 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     @Override
                                     public void onResponse(String response) {
+                                        // response
+                                        System.out.println("response is.....: " + response);
                                         try {
                                             JSONObject json = new JSONObject(response);
                                             token = json.getString("token");
+                                            System.out.println("token is....." + token);
                                             String numToSend = numberInput.replace(" ", "").replace("-","");
-                                            String custURL = "https://api.engagedapps.com/customer/addCustomer/" + storeId + "/+" + numToSend;
+                                            String custURL = "https://api.engagedapps.com/addCustomer/" + storeId + "/" + numToSend;
                                             StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
@@ -351,6 +354,7 @@ public class MainActivity extends AppCompatActivity {
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
+                                                    System.out.println("error sending customer: " + error.toString());
                                                 }
                                             }) {
                                                 @Override
