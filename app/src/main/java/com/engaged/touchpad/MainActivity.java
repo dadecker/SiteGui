@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String logoStr = "";
     private String leftSideStr = "https://engagedappshosting.s3.us-east-2.amazonaws.com/touchpad/friends1.jpg";
-    String url = "https://api.engagedapps.com/auth";
+    String url = "https://api.engagedtexting.com/auth";
     Context context;
     Activity activity;
     private String email = null;
