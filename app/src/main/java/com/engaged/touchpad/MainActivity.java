@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
                                             token = json.getString("token");
                                             System.out.println("token is....." + token);
                                             String numToSend = numberInput.replace(" ", "").replace("-","");
-                                            String custURL = "https://api.engagedapps.com/addCustomer/" + storeId + "/" + numToSend;
+                                            String custURL = "https://api.engagedtexting.com/addCustomer/" + storeId + "/" + numToSend;
                                             StringRequest newRequest = new StringRequest(POST, custURL, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
