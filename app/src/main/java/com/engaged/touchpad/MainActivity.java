@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
                                             }, new Response.ErrorListener() {
                                                 @Override
                                                 public void onErrorResponse(VolleyError error) {
-                                                    System.out.println("error sending customer: " + error.toString());
+                                                    showNumbers.setText(numberInput = "");
                                                 }
                                             }) {
                                                 @Override
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
                                             };
                                             mRequestQueue.add(newRequest);
                                         } catch (JSONException e) {
-                                            e.printStackTrace();
+                                            showNumbers.setText(numberInput = "");
                                         }
 
                                     }
@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                                 {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        // error
+                                        showNumbers.setText(numberInput = "");
 
                                     }
                                 }
@@ -394,6 +394,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     catch(Exception e)
                     {
+                        showNumbers.setText(numberInput = "");
                     }
 
                     break;
